@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
-from django.http import HttpResponse
-from django.http import Http404
-from .models import Question
+from django.http import HttpResponse,HttpResponseRedirect
+from django.urls import reverse
+
+from .models import Choice, Question
 # Create your views here.
 def index(request):
 	latest_question_list = Question.objects.order_by('-pub_date')[:5] #get last five questions
@@ -11,9 +12,32 @@ def index(request):
 		'latest_question_list': latest_question_list,
 	}
 	return render(request, 'polls/index.html', context) #render is a shortcut instead of "return HttpResponse(template.render(context,request))""
+
 def detail(request, question_id):
 	question = get_object_or_404(Question, pk = question_id)
 	return render(request, 'polls/detail.html', {'question':question})
+
+def vote(request, question_id):
+	#used to handle requests to vote on a question
+	question = get_object_or_404(Question, pk=question_id)
+	try:
+		selected_choice = question.choice_set.get(pk=request.POST['choice'])
+	except (KeyError, Choice.DoesNotExist):
+		#redisplay the form if choice was invalid
+		return render(request, 'polls/detail.hmtl', {'question':question,
+													'error_message': "You didn't select a choice",
+													})
+	else:
+		selected_choice.votes += 1
+		selected_choice.save()
+		#returns a httpResponseRedirect after dealing with post data; preventing double posting if user hit back button
+		print("hello")
+		return HttpResponseRedirect(reverse('polls:results',args=(question.id,)))
+
+
+def results(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	return render(request, 'polls/results.html', {'question':question})
 
 #handles people looking for questions - including those that do not exist
 
