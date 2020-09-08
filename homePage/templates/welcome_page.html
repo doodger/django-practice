@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
+<div class = "container-fluid">
+  <div class = "row ml-1" >
 
-<p> hello world! </p>
+  <div class = "card-columns d-flex flex-fill" >
+
+    <div class="card bg-secondary w-100 md-8 align-items-stretch ">
+      <br/>
+      <div style = "text-align:center;">
+      <h4 class="display-5">Jean-Christophe Rondy-Turcotte</h4>
+      <p class="lead">Mathematician, data scientist, programmer, writer. </p>
+      
+      <img src = "../static/img/myNoggin.png" style = "width:200px; height:auto;   border-radius: 40%; ">
+    </div>
+      <hr class="my-4">
+      <p>I live in Montreal. Across my academic and professional life I have a track record of problem solving in topics as diverse as neuroscience, financial risks and optical physics. In my spare time I enjoy writing, running and reading about history. </p>
+      <p class="lead">
+        <a class="btn btn-primary btn-md" href=" {% url 'project_index' %}" role="button">Visit my portfolio</a>
+      </p>
+    </div>
+   
+    <div class="card bg-secondary w-50  ">
+    <div class="card-body">
+      <h4 class="card-title">Contact and Links</h4>
+      <div class = "list-group">
+        <a href="https://github.com/doodger/"> Github profile </a>
+        <br/>
+        <a href="https://www.linkedin.com/in/jean-christophe-rondy-turcotte/"> LinkedIn profile </a>
+        <br/>
+        <p>Email me at: jcrondyt@gmail.com </p>
+      </div>
+    </div>
+    </div>
+  
+    </div>
+  </div>
+</div>
 {% endblock %}
