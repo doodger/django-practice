@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+#TODO: 17.0.0.1:8000/ needs to point to home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("projects/", include("projects.urls")),
-    path("home/", include("homePage.urls"))
+    path("home/", include("homePage.urls")),
+    path("", include("homePage.urls"))
 ]
